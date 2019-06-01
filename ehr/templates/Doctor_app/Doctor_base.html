@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{# Make modifiable head elements #}
+<head>
+    {% include "Doctor_app/header.html" %}
+</head>
+<body class="{% if request.get_full_path == '/patientHistory/' %} body_color
+ {% else %}body
+ {% endif %}"
+        style="{% if '/doctor/patiant/prescription/' in request.get_full_path or '/doctor/prescription/' in request.get_full_path %}background-image: url('/static/images/index_hero.jpg');
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 148%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+          {% else %}
+          {% endif %}">
+<div>
+    <div class="super_container">
+
+    {# Navigation Menu #}
+        {% include "navbar.html" %}
+
+    {# The Document Body #}
+        {# Login Body #}
+            {% block login_content %}
+            {% endblock login_content %}
+        {# Login Body #}
+            {% block signup_content %}
+            {% endblock signup_content %}
+        {# Profile body#}
+            {% block patientProfile %}
+            {% endblock patientProfile %}
+            </div>
+
+        {# All Patient History #}
+            {% block patient_history_content %}
+            {% endblock patient_history_content %}
+        {# Home Body #}
+            {% block home_content %}
+            {% endblock home_content %}
+        {# patientDoctor body#}
+            {% block patientDoctor %}
+            {% endblock patientDoctor %}
+    {# The Footer #}
+        {% include "footer.html" %}
+    </div>
+{% block javascript %}
+{% endblock javascript %}
+<script>
+$(document).ready(function(){
+  {% block jquery %}{% endblock %}
+})
+</script>
+</body>
+</html>

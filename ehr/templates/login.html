@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block login_content %}
+
+{% if request.GET.alert == "wrong_email" %}
+<script>
+    alert('wrong email')
+</script>
+{% endif %}
+{% if request.GET.alert == "wrong_password" %}
+<script>
+    alert('wrong password')
+</script>
+{% endif %}
+
+<div class="home_container" style="top:30%">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="home_content">
+                    <div class="home_title">Login</div>
+                    <form method='POST' action=''>
+                        <div class="home_text">
+                            {% csrf_token %}
+                            <div class="mydiv">
+                                <label class="mylabel">{{ form.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="mydiv">
+                                <label class="mylabel">{{ form.password.label }}</label>
+                                {{ form.password }}
+                            </div>
+{#                            <div class="form-group">#}
+{#                                <label><input name="remember_me" type="checkbox">Keep me logged in</label>#}
+{#                            </div>#}
+                            <button id="" type="submit" class="button home_button">Submit</button>
+                        </div>
+                    </form>
+                    <div class="home_text">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <span>Login Fast</span>
+                                <a href="{% url 'patient:QRCodeScanView' %}">
+                                    <button type="button" class="button home_button">Scan Id</button>
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <span>Forget Password</span>
+                                <button type="button" id="forget" class="button home_button">Remember</button>
+                            </div>
+                        </div>
+                        <div class="row" id="mail" style="display: none;">
+                            <form method="post" action="">
+                                {% csrf_token %}
+                                <div class="col-sm-7">
+                                    <input type="text" style="margin-top: 45px;border-radius: 50px;" name="for_pass" class="form-control" placeholder="E-mail" required>
+                                </div>
+                                <div class="col-sm-5">
+{#                                    <a href="{% url 'patient:forget_password' %}">#}
+                                        <button type="submit" style="border-radius: 50px;" class="button home_button">Get Reset Link</button>
+{#                                    </a>#}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var button = document.getElementById('forget'); // Assumes element with id='button'
+    button.onclick = function() {
+        var div = document.getElementById('mail');
+        if (div.style.display !== 'none') {
+            div.style.display = 'none';
+        }
+        else {
+            div.style.display = 'block';
+    }};
+</script>
+
+{% endblock login_content %}
